@@ -76,7 +76,7 @@ class HowMovexWorks extends StatelessWidget {
 }
 
 class _StepConnector extends StatelessWidget {
-  const _StepConnector({super.key});
+  const _StepConnector();
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,6 @@ class _StepTile extends StatelessWidget {
   final bool isHighlighted;
 
   const _StepTile({
-    super.key,
     required this.stepNumber,
     required this.icon,
     required this.title,
@@ -234,7 +233,7 @@ class _StepTile extends StatelessWidget {
 class _HighlightedDescription extends StatelessWidget {
   final String description;
 
-  const _HighlightedDescription({super.key, required this.description});
+  const _HighlightedDescription({required this.description});
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movex/core/theme/app_theme.dart';
 import 'package:movex/core/constants/app_constants.dart';
@@ -64,11 +65,11 @@ class _PropertyCategoriesState extends State<PropertyCategories> {
           SizedBox(
             height: 88,
             child: ListView.builder(
+              scrollCacheExtent: const ScrollCacheExtent.pixels(168.0),
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: _categories.length,
               itemExtent: 84.0,
-              cacheExtent: 168.0,
               addRepaintBoundaries: true,
               addAutomaticKeepAlives: false,
               addSemanticIndexes: false,

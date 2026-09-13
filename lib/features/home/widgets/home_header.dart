@@ -4,9 +4,9 @@ import 'package:movex/core/theme/app_theme.dart';
 
 
 class HomeHeader extends StatelessWidget {
-  final VoidCallback? onProfileTap;
+  final VoidCallback? onNotificationTap;
 
-  const HomeHeader({super.key, this.onProfileTap});
+  const HomeHeader({super.key, this.onNotificationTap});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class HomeHeader extends StatelessWidget {
             color: Colors.transparent,
             child: InkWell(
               borderRadius: BorderRadius.circular(24),
-              onTap: () {},
+              onTap: onNotificationTap ?? () {},
               child: Container(
                 padding: const EdgeInsets.all(8),
                 child: Stack(
@@ -98,29 +98,6 @@ class HomeHeader extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-            ),
-          ),
-          const SizedBox(width: 4),
-          // Profile avatar
-          GestureDetector(
-            onTap: onProfileTap,
-            child: Container(
-              width: 38,
-              height: 38,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [AppColors.primaryMid, AppColors.primary],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                shape: BoxShape.circle,
-                border: Border.all(color: AppColors.accent, width: 2),
-              ),
-              child: const Icon(
-                Icons.person_outline_rounded,
-                color: Colors.white,
-                size: 20,
               ),
             ),
           ),

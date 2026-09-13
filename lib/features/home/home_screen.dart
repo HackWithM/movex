@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -67,17 +68,15 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Column(
           children: [
             // Sticky header
-            SafeArea(
+            const SafeArea(
               bottom: false,
-              child: HomeHeader(
-                onProfileTap: () => _navigateTo(AppRoutes.profile),
-              ),
+              child: HomeHeader(),
             ),
             // Scrollable body
             Expanded(
               child: CustomScrollView(
+                scrollCacheExtent: const ScrollCacheExtent.pixels(500.0),
                 physics: const BouncingScrollPhysics(),
-                cacheExtent: 500.0,
                 slivers: [
                   SliverToBoxAdapter(
                     child: HeroSection(
@@ -133,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _Footer extends StatelessWidget {
-  const _Footer({super.key});
+  const _Footer();
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +214,6 @@ class _MovexBottomNav extends StatelessWidget {
   final ValueChanged<int> onTap;
 
   const _MovexBottomNav({
-    super.key,
     required this.selectedIndex,
     required this.onTap,
   });
@@ -279,7 +277,6 @@ class _NavItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const _NavItem({
-    super.key,
     required this.icon,
     required this.outlineIcon,
     required this.label,

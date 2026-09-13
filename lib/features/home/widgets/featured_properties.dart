@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movex/core/theme/app_theme.dart';
@@ -50,11 +51,11 @@ class FeaturedProperties extends StatelessWidget {
           SizedBox(
             height: 336,
             child: ListView.builder(
+              scrollCacheExtent: const ScrollCacheExtent.pixels(504.0),
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: properties.length,
               itemExtent: 252.0,
-              cacheExtent: 504.0,
               addRepaintBoundaries: true,
               addAutomaticKeepAlives: false,
               addSemanticIndexes: false,
