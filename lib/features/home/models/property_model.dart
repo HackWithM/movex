@@ -69,6 +69,16 @@ class PropertyModel {
         return const Color(0xFF6B7280);
     }
   }
+
+  String get formattedRent {
+    if (rentPerMonth >= 1000) {
+      final k = rentPerMonth ~/ 1000;
+      final rem = rentPerMonth % 1000;
+      if (rem == 0) return '${k}k';
+      return '$k,${rem.toString().padLeft(3, '0')}';
+    }
+    return rentPerMonth.toString();
+  }
 }
 
 /// Dummy featured property data for UI demonstration.

@@ -3,50 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movex/core/theme/app_theme.dart';
 import 'package:movex/core/constants/app_constants.dart';
 
-class HeroSection extends StatefulWidget {
+class HeroSection extends StatelessWidget {
   final ValueChanged<String>? onSearch;
 
   const HeroSection({super.key, this.onSearch});
-
-  @override
-  State<HeroSection> createState() => _HeroSectionState();
-}
-
-class _HeroSectionState extends State<HeroSection> {
-  final TextEditingController _controller = TextEditingController();
-  final List<String> _placeholders = [
-    'Pune',
-    'Wakad',
-    'Hinjewadi',
-    'Baner',
-    'Kharadi',
-    'Viman Nagar',
-  ];
-  int _placeholderIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _rotatePlaceholder();
-  }
-
-  void _rotatePlaceholder() async {
-    while (mounted) {
-      await Future.delayed(const Duration(seconds: 2));
-      if (mounted) {
-        setState(() {
-          _placeholderIndex =
-              (_placeholderIndex + 1) % _placeholders.length;
-        });
-      }
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,19 +105,70 @@ class _HeroSectionState extends State<HeroSection> {
                 ),
                 const SizedBox(height: 20),
                 // Search bar
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 400),
-                  child: _SearchBar(
-                    key: ValueKey(_placeholderIndex),
-                    controller: _controller,
-                    hint: _placeholders[_placeholderIndex],
-                    onSubmit: widget.onSearch,
-                  ),
-                ),
+                _RotatingSearchBar(onSearch: onSearch),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _RotatingSearchBar extends StatefulWidget {
+  final ValueChanged<String>? onSearch;
+
+  const _RotatingSearchBar({this.onSearch});
+
+  @override
+  State<_RotatingSearchBar> createState() => _RotatingSearchBarState();
+}
+
+class _RotatingSearchBarState extends State<_RotatingSearchBar> {
+  final TextEditingController _controller = TextEditingController();
+  static const List<String> _placeholders = [
+    'Pune',
+    'Wakad',
+    'Hinjewadi',
+    'Baner',
+    'Kharadi',
+    'Viman Nagar',
+  ];
+  int _placeholderIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _rotatePlaceholder();
+  }
+
+  void _rotatePlaceholder() async {
+    while (mounted) {
+      await Future.delayed(const Duration(seconds: 2));
+      if (mounted) {
+        setState(() {
+          _placeholderIndex =
+              (_placeholderIndex + 1) % _placeholders.length;
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 400),
+      child: _SearchBar(
+        key: ValueKey(_placeholderIndex),
+        controller: _controller,
+        hint: _placeholders[_placeholderIndex],
+        onSubmit: widget.onSearch,
       ),
     );
   }

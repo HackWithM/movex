@@ -68,6 +68,10 @@ class _PropertyCategoriesState extends State<PropertyCategories> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: _categories.length,
               itemExtent: 84.0,
+              cacheExtent: 168.0,
+              addRepaintBoundaries: true,
+              addAutomaticKeepAlives: false,
+              addSemanticIndexes: false,
               itemBuilder: (context, index) {
                 final cat = _categories[index];
                 final isSelected = index == _selectedIndex;

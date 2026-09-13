@@ -77,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: CustomScrollView(
                 physics: const BouncingScrollPhysics(),
+                cacheExtent: 500.0,
                 slivers: [
                   SliverToBoxAdapter(
                     child: HeroSection(

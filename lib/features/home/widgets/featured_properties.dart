@@ -54,6 +54,10 @@ class FeaturedProperties extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: properties.length,
               itemExtent: 252.0,
+              cacheExtent: 504.0,
+              addRepaintBoundaries: true,
+              addAutomaticKeepAlives: false,
+              addSemanticIndexes: false,
               itemBuilder: (context, index) {
                 final property = properties[index];
                 return _PropertyCard(
@@ -70,171 +74,44 @@ class FeaturedProperties extends StatelessWidget {
   }
 }
 
-class _PropertyCard extends StatefulWidget {
+class _PropertyCard extends StatelessWidget {
   final PropertyModel property;
   final VoidCallback? onTap;
 
-  const _PropertyCard({super.key, required this.property, this.onTap});
-
-  @override
-  State<_PropertyCard> createState() => _PropertyCardState();
-}
-
-class _PropertyCardState extends State<_PropertyCard>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _scaleAnim;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 120),
-    );
-    _scaleAnim = Tween<double>(begin: 1.0, end: 0.96).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  const _PropertyCard({
+    super.key,
+    required this.property,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final prop = widget.property;
-
-    return GestureDetector(
-      onTapDown: (_) => _controller.forward(),
-      onTapUp: (_) {
-        _controller.reverse();
-        widget.onTap?.call();
-      },
-      onTapCancel: () => _controller.reverse(),
-      child: ScaleTransition(
-        scale: _scaleAnim,
-        child: Container(
-          width: 240,
-          height: 328,
-          margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-          decoration: BoxDecoration(
-            color: AppColors.cardBg,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.primary.withAlpha(15),
-                blurRadius: 20,
-                offset: const Offset(0, 6),
-              ),
-            ],
+    return Container(
+      width: 240,
+      height: 328,
+      margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+      decoration: BoxDecoration(
+        color: AppColors.cardBg,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withAlpha(15),
+            blurRadius: 20,
+            offset: const Offset(0, 6),
           ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(20),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: onTap,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Property image
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(20),
-                ),
-                child: Stack(
-                  children: [
-                    CachedNetworkImage(
-                      imageUrl: prop.imageUrl,
-                      width: 240,
-                      height: 140,
-                      memCacheWidth: 240,
-                      memCacheHeight: 140,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) => Container(
-                        width: 240,
-                        height: 140,
-                        color: AppColors.sectionBg,
-                        child: const Center(
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: AppColors.accent,
-                          ),
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => Container(
-                        width: 240,
-                        height: 140,
-                        color: AppColors.sectionBg,
-                        child: const Icon(
-                          Icons.apartment_rounded,
-                          color: AppColors.textSecondary,
-                          size: 40,
-                        ),
-                      ),
-                    ),
-                    // Top overlays
-                    Positioned(
-                      top: 10,
-                      left: 10,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withAlpha(210),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          prop.typeLabel,
-                          style: GoogleFonts.outfit(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 10,
-                      right: 10,
-                      child: Container(
-                        padding: const EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withAlpha(230),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.favorite_border_rounded,
-                          size: 16,
-                          color: AppColors.accent,
-                        ),
-                      ),
-                    ),
-                    // Furnishing badge
-                    Positioned(
-                      bottom: 10,
-                      left: 10,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 3,
-                        ),
-                        decoration: BoxDecoration(
-                          color: prop.furnishingColor.withAlpha(220),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(
-                          prop.furnishingLabel,
-                          style: GoogleFonts.outfit(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              _PropertyImage(property: property),
 
               // Details
               Expanded(
@@ -245,7 +122,7 @@ class _PropertyCardState extends State<_PropertyCard>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${prop.bhkConfig} ${prop.typeLabel}',
+                        '${property.bhkConfig} ${property.typeLabel}',
                         style: GoogleFonts.outfit(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
@@ -258,7 +135,7 @@ class _PropertyCardState extends State<_PropertyCard>
                         children: [
                           Flexible(
                             child: Text(
-                              '₹${_formatAmount(prop.rentPerMonth)}',
+                              '₹${property.formattedRent}',
                               style: GoogleFonts.outfit(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w800,
@@ -288,7 +165,7 @@ class _PropertyCardState extends State<_PropertyCard>
                           const SizedBox(width: 3),
                           Expanded(
                             child: Text(
-                              '${prop.locality}, ${prop.city}',
+                              '${property.locality}, ${property.city}',
                               style: GoogleFonts.outfit(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -380,14 +257,118 @@ class _PropertyCardState extends State<_PropertyCard>
       ),
     );
   }
+}
 
-  String _formatAmount(int amount) {
-    if (amount >= 1000) {
-      final k = amount ~/ 1000;
-      final rem = amount % 1000;
-      if (rem == 0) return '${k}k';
-      return '$k,${rem.toString().padLeft(3, '0')}';
-    }
-    return amount.toString();
+class _PropertyImage extends StatelessWidget {
+  final PropertyModel property;
+
+  const _PropertyImage({required this.property});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(
+        top: Radius.circular(20),
+      ),
+      child: Stack(
+        children: [
+          CachedNetworkImage(
+            imageUrl: property.imageUrl,
+            width: 240,
+            height: 140,
+            memCacheWidth: 480,
+            memCacheHeight: 280,
+            maxWidthDiskCache: 600,
+            maxHeightDiskCache: 350,
+            fit: BoxFit.cover,
+            filterQuality: FilterQuality.low,
+            fadeInDuration: const Duration(milliseconds: 150),
+            placeholder: (context, url) => Container(
+              width: 240,
+              height: 140,
+              color: AppColors.sectionBg,
+              child: const Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: AppColors.accent,
+                ),
+              ),
+            ),
+            errorWidget: (context, url, error) => Container(
+              width: 240,
+              height: 140,
+              color: AppColors.sectionBg,
+              child: const Icon(
+                Icons.apartment_rounded,
+                color: AppColors.textSecondary,
+                size: 40,
+              ),
+            ),
+          ),
+          // Top overlays
+          Positioned(
+            top: 10,
+            left: 10,
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 4,
+              ),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withAlpha(210),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                property.typeLabel,
+                style: GoogleFonts.outfit(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 10,
+            right: 10,
+            child: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(230),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.favorite_border_rounded,
+                size: 16,
+                color: AppColors.accent,
+              ),
+            ),
+          ),
+          // Furnishing badge
+          Positioned(
+            bottom: 10,
+            left: 10,
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 3,
+              ),
+              decoration: BoxDecoration(
+                color: property.furnishingColor.withAlpha(220),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Text(
+                property.furnishingLabel,
+                style: GoogleFonts.outfit(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

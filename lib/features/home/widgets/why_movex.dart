@@ -48,6 +48,9 @@ class WhyMovex extends StatelessWidget {
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
+            addRepaintBoundaries: true,
+            addAutomaticKeepAlives: false,
+            addSemanticIndexes: false,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 14,
