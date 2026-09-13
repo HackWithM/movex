@@ -3,38 +3,38 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movex/core/theme/app_theme.dart';
 import 'package:movex/core/constants/app_constants.dart';
 
+const List<_FeatureData> _features = [
+  _FeatureData(
+    icon: Icons.lock_rounded,
+    label: 'Privacy Protected',
+    desc: AppStrings.privacyDesc,
+    gradientColors: [Color(0xFF667EEA), Color(0xFF764BA2)],
+  ),
+  _FeatureData(
+    icon: Icons.photo_library_rounded,
+    label: 'Property Photos',
+    desc: AppStrings.photosDesc,
+    gradientColors: [Color(0xFFFF6B6B), Color(0xFFFF8E53)],
+  ),
+  _FeatureData(
+    icon: Icons.verified_rounded,
+    label: 'Verified Listings',
+    desc: AppStrings.verifiedDesc,
+    gradientColors: [Color(0xFF00C9A7), Color(0xFF0F3460)],
+  ),
+  _FeatureData(
+    icon: Icons.currency_rupee_rounded,
+    label: 'Affordable Access',
+    desc: AppStrings.affordableDesc,
+    gradientColors: [Color(0xFFE94560), Color(0xFF1A1A2E)],
+  ),
+];
+
 class WhyMovex extends StatelessWidget {
   const WhyMovex({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final features = [
-      _FeatureData(
-        icon: Icons.lock_rounded,
-        label: 'Privacy Protected',
-        desc: AppStrings.privacyDesc,
-        gradientColors: [const Color(0xFF667EEA), const Color(0xFF764BA2)],
-      ),
-      _FeatureData(
-        icon: Icons.photo_library_rounded,
-        label: 'Property Photos',
-        desc: AppStrings.photosDesc,
-        gradientColors: [const Color(0xFFFF6B6B), const Color(0xFFFF8E53)],
-      ),
-      _FeatureData(
-        icon: Icons.verified_rounded,
-        label: 'Verified Listings',
-        desc: AppStrings.verifiedDesc,
-        gradientColors: [const Color(0xFF00C9A7), const Color(0xFF0F3460)],
-      ),
-      _FeatureData(
-        icon: Icons.currency_rupee_rounded,
-        label: 'Affordable Access',
-        desc: AppStrings.affordableDesc,
-        gradientColors: [const Color(0xFFE94560), const Color(0xFF1A1A2E)],
-      ),
-    ];
-
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 28, 20, 0),
       child: Column(
@@ -54,9 +54,9 @@ class WhyMovex extends StatelessWidget {
               mainAxisSpacing: 14,
               childAspectRatio: 0.88,
             ),
-            itemCount: features.length,
+            itemCount: _features.length,
             itemBuilder: (context, index) => _FeatureCard(
-              data: features[index],
+              data: _features[index],
             ),
           ),
         ],

@@ -142,6 +142,8 @@ class _PropertyCardState extends State<_PropertyCard>
                       imageUrl: prop.imageUrl,
                       width: 240,
                       height: 140,
+                      memCacheWidth: 240,
+                      memCacheHeight: 140,
                       fit: BoxFit.cover,
                       placeholder: (context, url) => Container(
                         width: 240,

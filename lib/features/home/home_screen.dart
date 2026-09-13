@@ -58,50 +58,49 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             // Scrollable body
             Expanded(
-              child: SingleChildScrollView(
+              child: CustomScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // 1. Hero
-                    HeroSection(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: HeroSection(
                       onSearch: (query) {
                         if (query.trim().isNotEmpty) {
                           _navigateTo(AppRoutes.search);
                         }
                       },
                     ),
-
-                    // 2. Primary Actions
-                    ActionButtons(
+                  ),
+                  SliverToBoxAdapter(
+                    child: ActionButtons(
                       onSearchTap: () => _navigateTo(AppRoutes.search),
                       onPostTap: () => _navigateTo(AppRoutes.postProperty),
                     ),
-
-                    // 3. Property Categories
-                    PropertyCategories(
+                  ),
+                  SliverToBoxAdapter(
+                    child: PropertyCategories(
                       onCategoryTap: (cat) => _navigateTo(AppRoutes.search),
                     ),
-
-                    // 4. Featured Properties
-                    FeaturedProperties(
+                  ),
+                  SliverToBoxAdapter(
+                    child: FeaturedProperties(
                       properties: dummyProperties,
                       onPropertyTap: (prop) =>
                           _navigateTo(AppRoutes.propertyDetail),
                     ),
-
-                    // 5. How Movex Works
-                    const HowMovexWorks(),
-
-                    // 6. Why Choose Movex
-                    const WhyMovex(),
-
-                    // Footer
-                    _Footer(),
-
-                    const SizedBox(height: 24),
-                  ],
-                ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: HowMovexWorks(),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: WhyMovex(),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: _Footer(),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(height: 24),
+                  ),
+                ],
               ),
             ),
           ],
@@ -116,6 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _Footer extends StatelessWidget {
+  const _Footer();
+
   @override
   Widget build(BuildContext context) {
     return Container(
