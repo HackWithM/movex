@@ -56,6 +56,7 @@ class WhyMovex extends StatelessWidget {
             ),
             itemCount: _features.length,
             itemBuilder: (context, index) => _FeatureCard(
+              key: ValueKey(_features[index].label),
               data: _features[index],
             ),
           ),
@@ -82,7 +83,7 @@ class _FeatureData {
 class _FeatureCard extends StatelessWidget {
   final _FeatureData data;
 
-  const _FeatureCard({required this.data});
+  const _FeatureCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {

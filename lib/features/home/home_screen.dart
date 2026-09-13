@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:movex/core/theme/app_theme.dart';
 import 'package:movex/core/constants/app_constants.dart';
 import 'package:movex/features/home/models/property_model.dart';
@@ -21,6 +22,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedNavIndex = 0;
+  bool _imagesPrecached = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_imagesPrecached) {
+      _imagesPrecached = true;
+      _precacheImages();
+    }
+  }
+
+  void _precacheImages() {
+    for (final prop in dummyProperties) {
+      precacheImage(CachedNetworkImageProvider(prop.imageUrl), context);
+    }
+  }
 
   void _navigateTo(String route) {
     Navigator.of(context).pushNamed(route);
@@ -115,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _Footer extends StatelessWidget {
-  const _Footer();
+  const _Footer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -197,6 +214,7 @@ class _MovexBottomNav extends StatelessWidget {
   final ValueChanged<int> onTap;
 
   const _MovexBottomNav({
+    super.key,
     required this.selectedIndex,
     required this.onTap,
   });
@@ -260,6 +278,7 @@ class _NavItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const _NavItem({
+    super.key,
     required this.icon,
     required this.outlineIcon,
     required this.label,

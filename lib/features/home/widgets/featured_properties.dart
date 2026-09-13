@@ -53,10 +53,13 @@ class FeaturedProperties extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: properties.length,
+              itemExtent: 252.0,
               itemBuilder: (context, index) {
+                final property = properties[index];
                 return _PropertyCard(
-                  property: properties[index],
-                  onTap: () => onPropertyTap?.call(properties[index]),
+                  key: ValueKey(property.id),
+                  property: property,
+                  onTap: () => onPropertyTap?.call(property),
                 );
               },
             ),
@@ -71,7 +74,7 @@ class _PropertyCard extends StatefulWidget {
   final PropertyModel property;
   final VoidCallback? onTap;
 
-  const _PropertyCard({required this.property, this.onTap});
+  const _PropertyCard({super.key, required this.property, this.onTap});
 
   @override
   State<_PropertyCard> createState() => _PropertyCardState();

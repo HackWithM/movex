@@ -46,23 +46,23 @@ class HowMovexWorks extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          _StepTile(
+          const _StepTile(
             stepNumber: 1,
             icon: Icons.search_rounded,
             title: AppStrings.step1Title,
             description: AppStrings.step1Desc,
             isHighlighted: false,
           ),
-          _StepConnector(),
-          _StepTile(
+          const _StepConnector(),
+          const _StepTile(
             stepNumber: 2,
             icon: Icons.home_work_outlined,
             title: AppStrings.step2Title,
             description: AppStrings.step2Desc,
             isHighlighted: false,
           ),
-          _StepConnector(),
-          _StepTile(
+          const _StepConnector(),
+          const _StepTile(
             stepNumber: 3,
             icon: Icons.lock_open_rounded,
             title: AppStrings.step3Title,
@@ -76,6 +76,8 @@ class HowMovexWorks extends StatelessWidget {
 }
 
 class _StepConnector extends StatelessWidget {
+  const _StepConnector({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -111,6 +113,7 @@ class _StepTile extends StatelessWidget {
   final bool isHighlighted;
 
   const _StepTile({
+    super.key,
     required this.stepNumber,
     required this.icon,
     required this.title,
@@ -231,7 +234,7 @@ class _StepTile extends StatelessWidget {
 class _HighlightedDescription extends StatelessWidget {
   final String description;
 
-  const _HighlightedDescription({required this.description});
+  const _HighlightedDescription({super.key, required this.description});
 
   @override
   Widget build(BuildContext context) {

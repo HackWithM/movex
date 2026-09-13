@@ -52,6 +52,7 @@ class _ActionCard extends StatefulWidget {
   final VoidCallback? onTap;
 
   const _ActionCard({
+    super.key,
     required this.icon,
     required this.title,
     required this.subtitle,
@@ -113,6 +114,7 @@ class _PrimaryCard extends StatelessWidget {
   final String subtitle;
 
   const _PrimaryCard({
+    super.key,
     required this.icon,
     required this.title,
     required this.subtitle,
@@ -179,6 +181,7 @@ class _SecondaryCard extends StatelessWidget {
   final String subtitle;
 
   const _SecondaryCard({
+    super.key,
     required this.icon,
     required this.title,
     required this.subtitle,
