@@ -40,11 +40,15 @@ class _PropertyCategoriesState extends State<PropertyCategories> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                Text(
-                  AppStrings.exploreProperties,
-                  style: Theme.of(context).textTheme.headlineMedium,
+                Expanded(
+                  child: Text(
+                    AppStrings.exploreProperties,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                const Spacer(),
+                const SizedBox(width: 8),
                 Text(
                   'See all',
                   style: GoogleFonts.outfit(
@@ -108,14 +112,20 @@ class _PropertyCategoriesState extends State<PropertyCategories> {
                           style: const TextStyle(fontSize: 22),
                         ),
                         const SizedBox(height: 6),
-                        Text(
-                          cat.label,
-                          style: GoogleFonts.outfit(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: isSelected
-                                ? Colors.white
-                                : AppColors.textPrimary,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: Text(
+                            cat.label,
+                            style: GoogleFonts.outfit(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: isSelected
+                                  ? Colors.white
+                                  : AppColors.textPrimary,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],

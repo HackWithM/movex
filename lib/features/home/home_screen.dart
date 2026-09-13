@@ -152,12 +152,14 @@ class _Footer extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              Text(
-                'Movex',
-                style: GoogleFonts.outfit(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
+              Expanded(
+                child: Text(
+                  'Movex',
+                  style: GoogleFonts.outfit(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],

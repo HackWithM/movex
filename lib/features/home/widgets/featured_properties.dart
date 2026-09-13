@@ -26,11 +26,15 @@ class FeaturedProperties extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                Text(
-                  AppStrings.featuredProperties,
-                  style: Theme.of(context).textTheme.headlineMedium,
+                Expanded(
+                  child: Text(
+                    AppStrings.featuredProperties,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                const Spacer(),
+                const SizedBox(width: 8),
                 Text(
                   'View all',
                   style: GoogleFonts.outfit(
@@ -44,7 +48,7 @@ class FeaturedProperties extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           SizedBox(
-            height: 330,
+            height: 336,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -111,7 +115,7 @@ class _PropertyCardState extends State<_PropertyCard>
         scale: _scaleAnim,
         child: Container(
           width: 240,
-          height: 322,
+          height: 328,
           margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
           decoration: BoxDecoration(
             color: AppColors.cardBg,
@@ -229,72 +233,73 @@ class _PropertyCardState extends State<_PropertyCard>
 
               // Details
               Expanded(
-                child: SingleChildScrollView(
-                  physics: const ClampingScrollPhysics(),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(14, 10, 14, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${prop.bhkConfig} ${prop.typeLabel}',
-                          style: GoogleFonts.outfit(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.textPrimary,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(14, 10, 14, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${prop.bhkConfig} ${prop.typeLabel}',
+                        style: GoogleFonts.outfit(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.textPrimary,
                         ),
-                        const SizedBox(height: 4),
-                        Row(
-                          children: [
-                            Text(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Text(
                               '₹${_formatAmount(prop.rentPerMonth)}',
                               style: GoogleFonts.outfit(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w800,
                                 color: AppColors.primary,
                               ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            Text(
-                              '/mo',
+                          ),
+                          Text(
+                            '/mo',
+                            style: GoogleFonts.outfit(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.location_on_rounded,
+                            size: 13,
+                            color: AppColors.accent,
+                          ),
+                          const SizedBox(width: 3),
+                          Expanded(
+                            child: Text(
+                              '${prop.locality}, ${prop.city}',
                               style: GoogleFonts.outfit(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.textSecondary,
                               ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.location_on_rounded,
-                              size: 13,
-                              color: AppColors.accent,
-                            ),
-                            const SizedBox(width: 3),
-                            Expanded(
-                              child: Text(
-                                '${prop.locality}, ${prop.city}',
-                                style: GoogleFonts.outfit(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.textSecondary,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        // Lock badge
-                        Row(
-                          children: [
-                            Container(
+                          ),
+                        ],
+                      ),
+                      // Lock badge
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Container(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 8,
                                 vertical: 3,
@@ -315,21 +320,25 @@ class _PropertyCardState extends State<_PropertyCard>
                                     color: AppColors.lockBadge,
                                   ),
                                   const SizedBox(width: 4),
-                                  Text(
-                                    AppStrings.ownerLocked,
-                                    style: GoogleFonts.outfit(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.lockBadge,
+                                  Flexible(
+                                    child: Text(
+                                      AppStrings.ownerLocked,
+                                      style: GoogleFonts.outfit(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.lockBadge,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),

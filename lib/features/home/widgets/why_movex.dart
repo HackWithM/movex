@@ -52,7 +52,7 @@ class WhyMovex extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 14,
               mainAxisSpacing: 14,
-              childAspectRatio: 1.05,
+              childAspectRatio: 0.88,
             ),
             itemCount: features.length,
             itemBuilder: (context, index) => _FeatureCard(
@@ -116,7 +116,7 @@ class _FeatureCard extends StatelessWidget {
             ),
             child: Icon(data.icon, color: Colors.white, size: 22),
           ),
-          const Spacer(),
+          const SizedBox(height: 12),
           Text(
             data.label,
             style: GoogleFonts.outfit(
@@ -124,18 +124,22 @@ class _FeatureCard extends StatelessWidget {
               fontWeight: FontWeight.w700,
               color: AppColors.textPrimary,
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 4),
-          Text(
-            data.desc,
-            style: GoogleFonts.outfit(
-              fontSize: 11,
-              fontWeight: FontWeight.w400,
-              color: AppColors.textSecondary,
-              height: 1.4,
+          Expanded(
+            child: Text(
+              data.desc,
+              style: GoogleFonts.outfit(
+                fontSize: 11,
+                fontWeight: FontWeight.w400,
+                color: AppColors.textSecondary,
+                height: 1.4,
+              ),
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
             ),
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),

@@ -41,31 +41,33 @@ class HomeHeader extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           // App name
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: 'Move',
-                  style: GoogleFonts.outfit(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primary,
-                    letterSpacing: -0.5,
+          Expanded(
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Move',
+                    style: GoogleFonts.outfit(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primary,
+                      letterSpacing: -0.5,
+                    ),
                   ),
-                ),
-                TextSpan(
-                  text: 'x',
-                  style: GoogleFonts.outfit(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.accent,
-                    letterSpacing: -0.5,
+                  TextSpan(
+                    text: 'x',
+                    style: GoogleFonts.outfit(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.accent,
+                      letterSpacing: -0.5,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-          const Spacer(),
           // Notification bell
           Material(
             color: Colors.transparent,

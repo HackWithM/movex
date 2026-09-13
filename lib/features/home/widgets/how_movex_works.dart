@@ -17,9 +17,13 @@ class HowMovexWorks extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                AppStrings.howMovexWorks,
-                style: Theme.of(context).textTheme.headlineMedium,
+              Expanded(
+                child: Text(
+                  AppStrings.howMovexWorks,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               const SizedBox(width: 8),
               Container(
@@ -188,12 +192,16 @@ class _StepTile extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Text(
-                      title,
-                      style: GoogleFonts.outfit(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.textPrimary,
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: GoogleFonts.outfit(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textPrimary,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
